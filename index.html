@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Maxi/Katherine ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600&family=Playfair+Display:wght@700;900&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff6b9d;
+            --secondary: #ffa07a;
+            --accent: #c44569;
+            --dark: #2d1b3d;
+            --light: #fff5f7;
+            --glow: #ff85a1;
+        }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--light);
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Initial Screen */
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .welcome-screen.hidden {
+            display: none;
+        }
+
+        .heart-container {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .big-heart {
+            font-size: 120px;
+            animation: heartbeat 2s infinite;
+            filter: drop-shadow(0 0 30px var(--glow));
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            10%, 30% { transform: scale(1.1); }
+            20%, 40% { transform: scale(1); }
+        }
+
+        .welcome-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, var(--glow), #fff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite;
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .welcome-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 50px;
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .start-button {
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            font-family: 'Crimson Pro', serif;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .start-button:hover {
+            background: white;
+            color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Letter Content */
+        .letter-content {
+            display: none;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .letter-content.visible {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .days-counter {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+
+        .date-range {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+
+        /* Letter Paper */
+        .letter-paper {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--dark);
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.3);
+            position: relative;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .letter-paper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+
+        .letter-greeting {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--accent);
+        }
+
+        .letter-paragraph {
+            font-size: 1.2rem;
+            line-height: 2;
+            margin-bottom: 30px;
+            text-align: justify;
+            opacity: 0;
+            animation: fadeInText 0.8s ease-in forwards;
+        }
+
+        .letter-paragraph:nth-child(2) { animation-delay: 0.3s; }
+        .letter-paragraph:nth-child(3) { animation-delay: 0.6s; }
+        .letter-paragraph:nth-child(4) { animation-delay: 0.9s; }
+        .letter-paragraph:nth-child(5) { animation-delay: 1.2s; }
+        .letter-paragraph:nth-child(6) { animation-delay: 1.5s; }
+
+        @keyframes fadeInText {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, transparent 0%, var(--secondary) 0%);
+            background-size: 100% 40%;
+            background-repeat: no-repeat;
+            background-position: 0 85%;
+            padding: 2px 0;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .letter-signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            text-align: right;
+            margin-top: 50px;
+            color: var(--accent);
+        }
+
+        /* Interactive messages */
+        .hidden-messages {
+            margin-top: 60px;
+        }
+
+        .message-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message-card::before {
+            content: '❤️';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+
+        .message-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(10px);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
+        }
+
+        .message-card:hover::before {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        .message-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .message-preview {
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+
+        .message-full {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            animation: slideDown 0.3s ease;
+        }
+
+        .message-card.expanded .message-full {
+            display: block;
+        }
+
+        .message-card.expanded .message-preview {
+            display: none;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Final message */
+        .final-message {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+        }
+
+        .final-message h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .final-message p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+        }
+
+        /* Floating hearts decoration */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0;
+            animation: floatHeart 4s ease-in infinite;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                opacity: 0;
+                transform: translateY(0) rotate(0deg);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .welcome-title {
+                font-size: 2.5rem;
+            }
+
+            .letter-paper {
+                padding: 30px 20px;
+            }
+
+            .letter-paragraph {
+                font-size: 1.1rem;
+            }
+
+            .big-heart {
+                font-size: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Floating Hearts (triggered on interaction) -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="heart-container">
+                <div class="big-heart">💝</div>
+            </div>
+            <h1 class="welcome-title">Un Mes Juntos</h1>
+            <p class="welcome-subtitle">Para: Maxi/Katherine</p>
+            <button class="start-button" onclick="startExperience()">Abrir Carta ✨</button>
+        </div>
+
+        <!-- Letter Content -->
+        <div class="letter-content" id="letterContent">
+            <!-- Header with counter -->
+            <div class="header">
+                <div class="days-counter">💕 <span id="daysCount">30</span> días increíbles 💕</div>
+                <div class="date-range">12 FEB 2026 — 12 MAR 2026</div>
+            </div>
+
+            <!-- Main Letter -->
+            <div class="letter-paper">
+                <div class="letter-greeting">Mi amor,</div>
+                
+                <p class="letter-paragraph">
+                    Hoy celebramos nuestro primer mes juntos, y aunque solo han pasado 30 días, 
+                    siento que <span class="highlight">cada momento contigo ha sido extraordinario</span>. 
+                    Desde que llegaste a mi vida, todo tiene más color, más sentido, más alegría.
+                </p>
+
+                <p class="letter-paragraph">
+                    Recuerdo perfectamente el día que empezó todo. La forma en que me hiciste sentir 
+                    especial desde el primer instante. <span class="highlight">Eres la persona que hace 
+                    que mis días sean mejores</span>, que convierte lo ordinario en extraordinario.
+                </p>
+
+                <p class="letter-paragraph">
+                    Me encanta cómo me haces reír, cómo entiendes mis silencios, cómo celebras mis logros 
+                    y cómo me apoyas en los momentos difíciles. Cada conversación contigo es un regalo, 
+                    cada risa compartida es un tesoro que guardo en mi corazón.
+                </p>
+
+                <p class="letter-paragraph">
+                    Este mes ha sido solo el comienzo de algo hermoso. <span class="highlight">Quiero 
+                    seguir creando memorias contigo</span>, seguir descubriendo todo lo que nos hace únicos, 
+                    seguir construyendo juntos esta historia que apenas comienza.
+                </p>
+
+                <p class="letter-paragraph">
+                    Gracias por elegirme, por confiar en mí, por ser tú. Gracias por cada mensaje, 
+                    cada sonrisa, cada momento compartido. Este es solo el primer capítulo de muchos 
+                    que quiero escribir a tu lado.
+                </p>
+
+                <p class="letter-paragraph">
+                    <span class="highlight">Te quiero más de lo que las palabras pueden expresar.</span> 
+                    Que este sea el primero de muchos meses, años y aventuras juntos.
+                </p>
+
+                <div class="letter-signature">Con todo mi amor ❤️</div>
+            </div>
+
+            <!-- Hidden Messages to Click -->
+            <div class="hidden-messages">
+                <div class="message-card" onclick="toggleMessage(this)">
+                    <div class="message-title">🌟 Lo que más admiro de ti</div>
+                    <div class="message-preview">Haz click para descubrir...</div>
+                    <div class="message-full">
+                        Admiro tu forma de ser auténtico/a, tu sonrisa que ilumina cualquier lugar, 
+                        tu manera de ver el mundo con optimismo, tu fuerza cuando las cosas se ponen difíciles, 
+                        y sobre todo, tu corazón tan noble y generoso. Eres increíble en tantas formas que 
+                        podría llenar páginas enteras hablando de lo especial que eres.
+                    </div>
+                </div>
+
+                <div class="message-card" onclick="toggleMessage(this)">
+                    <div class="message-title">💭 Mis momentos favoritos contigo</div>
+                    <div class="message-preview">Haz click para descubrir...</div>
+                    <div class="message-full">
+                        Cada momento contigo es especial, pero hay algunos que brillan con luz propia: 
+                        nuestras largas conversaciones hasta tarde, las risas espontáneas que compartimos, 
+                        esos silencios cómodos que solo existen con las personas especiales, y cada vez 
+                        que me haces sentir que soy importante para ti. Son esos pequeños detalles los 
+                        que hacen que todo sea mágico.
+                    </div>
+                </div>
+
+                <div class="message-card" onclick="toggleMessage(this)">
+                    <div class="message-title">🎯 Lo que espero de nosotros</div>
+                    <div class="message-preview">Haz click para descubrir...</div>
+                    <div class="message-full">
+                        Espero que sigamos creciendo juntos, apoyándonos en nuestros sueños y metas. 
+                        Quiero seguir conociéndote más cada día, descubrir tus pasiones, tus miedos, 
+                        tus esperanzas. Quiero ser tu compañero/a en las aventuras, tu refugio en las 
+                        tormentas, y tu mayor admirador/a siempre. Juntos podemos lograr cosas increíbles.
+                    </div>
+                </div>
+
+                <div class="message-card" onclick="toggleMessage(this)">
+                    <div class="message-title">🔮 Una promesa para ti</div>
+                    <div class="message-preview">Haz click para descubrir...</div>
+                    <div class="message-full">
+                        Te prometo estar presente, escucharte de verdad, celebrar tus victorias como mías, 
+                        y apoyarte incondicionalmente. Prometo ser honesto/a contigo, valorar lo que 
+                        construimos juntos, y nunca dejar de esforzarme por hacerte feliz. Prometo que, 
+                        pase lo que pase, siempre podrás contar conmigo.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final Message -->
+            <div class="final-message">
+                <h2>Feliz Primer Mes, Mi Amor 💖</h2>
+                <p>
+                    Que vengan muchos más momentos increíbles, risas compartidas, 
+                    sueños cumplidos y recuerdos inolvidables. Esto es solo el comienzo 
+                    de algo hermoso.
+                </p>
+                <p style="margin-top: 30px; font-size: 2rem;">
+                    ¡Te amo! 💕✨🌟
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Start experience
+        function startExperience() {
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('letterContent').classList.add('visible');
+            createFloatingHearts();
+        }
+
+        // Toggle message cards
+        function toggleMessage(card) {
+            card.classList.toggle('expanded');
+            createFloatingHearts();
+        }
+
+        // Create floating hearts on interaction
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            for (let i = 0; i < 5; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = i * 0.3 + 's';
+                container.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 4000);
+            }
+        }
+
+        // Calculate actual days (can be updated with real date)
+        function updateDaysCounter() {
+            const startDate = new Date('2026-02-12');
+            const today = new Date();
+            const diffTime = Math.abs(today - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            document.getElementById('daysCount').textContent = diffDays;
+        }
+
+        // Initialize
+        createParticles();
+        updateDaysCounter();
+    </script>
+</body>
+</html>
